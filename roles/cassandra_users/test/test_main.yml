@@ -10,12 +10,11 @@
       with_items: "{{ system_dependencies }}"
       loop_control: 
         loop_var: current_dependency
-    - block:
-      - name: "checking if cassandra-driver has been installed using pip"
-        command: pip show cassandra-driver
-        register: result
-        changed_when: false
-      - name: "result"
-        assert: { that: "'Name: cassandra-driver' in result.stdout" }
-    when: 1 == 0 
     # todo: mkd - add back the cassandra-driver test once the install logic is working again
+    #- block:
+    #  - name: "checking if cassandra-driver has been installed using pip"
+    #    command: pip show cassandra-driver
+    #    register: result
+    #    changed_when: false
+    #  - name: "result"
+    #    assert: { that: "'Name: cassandra-driver' in result.stdout" }

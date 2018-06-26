@@ -1,0 +1,9 @@
+---
+- name: "check if {{ current_dependency }} is installed with apt"
+  command: apt list {{ current_dependency }}
+  register: result
+  changed_when: false
+- name: "result"
+  assert: { that: "'[installed]' in result.stdout" }
+
+
