@@ -1,3 +1,0 @@
----
-- name: 'say hello'
-  debug: msg='hello ansible'

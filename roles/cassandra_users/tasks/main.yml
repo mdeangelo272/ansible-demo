@@ -1,0 +1,5 @@
+---
+- name: "install base dependencies"
+  package: "{{ item }}"
+  state: present
+  with_items: "{{ system_dependencies }}"

@@ -2,4 +2,4 @@
 - name: primary
   hosts: all
   roles: 
-    - 'bootstrap'
+    - "cassandra_users"

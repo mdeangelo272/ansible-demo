@@ -7,3 +7,6 @@ ignore/
 # vim
 *.sw*
 
+# Ansible
+*.retry
+

@@ -1,0 +1,3 @@
+---
+- name: "Run Cassandra User Tests"
+  import_playbook: "../roles/cassandra_users/test/test_main.yml"

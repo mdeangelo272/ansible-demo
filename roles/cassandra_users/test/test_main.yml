@@ -1,0 +1,13 @@
+---
+# Note that the role tests are playbooks not just task files. This allows us to include the variable files. 
+- name: "cassandra users tests"
+  hosts: all
+  vars_files: ["../vars/main.yml"]
+  tasks: 
+    - name: "Validate that the dependencies have been installed"
+      # I would greatly prefer to loop over a block, but Ansible does not support it.
+      include_tasks: "test_dependencies.yml"
+      with_items: "{{ system_dependencies }}"
+      loop_control: 
+        loop_var: current_dependency
+
