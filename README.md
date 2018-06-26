@@ -1,6 +1,6 @@
 # Ansible Demo
 
-![Cassandra Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Cassandra_logo.svg/200px-Cassandra_logo.svg.png)
+![Cassandra Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Cassandra_logo.svg/500px-Cassandra_logo.svg.png)
 
 This repository contains a sample Ansible Module, Role, and Playbook that will install a Cassandra database and manage Cassandra database users. 
 
