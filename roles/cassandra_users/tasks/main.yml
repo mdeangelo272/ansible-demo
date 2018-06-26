@@ -1,8 +1,9 @@
 ---
 - name: "install base dependencies"
-  package: "{{ item }}"
-  state: present
+  package: 
+    name: "{{ item }}"
   with_items: "{{ system_dependencies }}"
+  become: yes
 - name: "install cassandra driver"
   pip: 
     name: "cassandra-driver"
