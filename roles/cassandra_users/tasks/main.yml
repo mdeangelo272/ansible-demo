@@ -3,3 +3,6 @@
   package: "{{ item }}"
   state: present
   with_items: "{{ system_dependencies }}"
+- name: "install cassandra driver"
+  pip: 
+    name: "cassandra-driver"

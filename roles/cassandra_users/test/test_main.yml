@@ -4,10 +4,16 @@
   hosts: all
   vars_files: ["../vars/main.yml"]
   tasks: 
-    - name: "Validate that the dependencies have been installed"
+    - name: "Validate that the system dependencies have been installed"
       # I would greatly prefer to loop over a block, but Ansible does not support it.
       include_tasks: "test_dependencies.yml"
       with_items: "{{ system_dependencies }}"
       loop_control: 
         loop_var: current_dependency
-
+    - block:
+      - name: "checking if cassandra-driver has been installed using pip"
+        command: pip show cassandra-driver
+        register: result
+        changed_when: false
+      - name: "result"
+        assert: { that: "'Name: cassandra-driver' in result.stdout" }
