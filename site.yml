@@ -1,6 +1,7 @@
 ---
 - name: primary
   hosts: all
+  vars_files: ["vars/vault"]
   roles: 
     - "cassandra_server"
     - "cassandra_users"

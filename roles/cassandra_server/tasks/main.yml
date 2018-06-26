@@ -1,2 +1,2 @@
 ---
-- debug: msg="spam and eggs {{ cass_admin_user }}"
+- debug: msg="cass user {{ cass_admin_password }}"
