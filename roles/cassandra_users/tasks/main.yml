@@ -4,6 +4,11 @@
     name: "{{ item }}"
   with_items: "{{ system_dependencies }}"
   become: yes
-- name: "install cassandra driver"
-  pip: 
-    name: "cassandra-driver"
+# todo: mkd - need get cassandra driver dependencies resolved
+# note: mkd - this was working but didn't survive after a vagrant destroy. There is some manual step I need to track down. 
+#- name: "install cassandra driver"
+#  pip: 
+#    name: "cassandra-driver"
+
+- name: "modify cassandra users"
+  import_tasks: "modify_cassandra_users.yml"

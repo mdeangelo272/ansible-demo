@@ -63,11 +63,19 @@ from ansible.module_utils.basic import AnsibleModule
 # from ansible.module_utils.six.moves import configparser
 
 
+try:
+    from cassandra.cluster import Cluster
+    CASSANDRA_FOUND = True
+except ImportError:
+    CASSANDRA_FOUND = False
+
+
 def main():
+    # create and configure the Ansible Module instance
     module = AnsibleModule(
         argument_spec=dict(
             login_user=dict(),
-            login_password=dict(),
+            login_password=dict(no_log=True),
             login_host=dict(default='localhost'),
             login_port=dict(default=9042, type='int'),
             user=dict(required=True, aliases=['name']),
@@ -76,8 +84,22 @@ def main():
         ),
         supports_check_mode=False  # todo: add check mode support
     )
-    module.exit_json(changed=True, user='foo')
-    # module.fail_json(changed=False, user='failed')
+
+    # Validate that the cassanadra driver has been installed
+    if not CASSANDRA_FOUND:
+        module.fail_json(msg="the python package cassandra-driver is required")
+
+    # todo: mkd - add logic to create and remove users
+    # * add logic to log into server and report failures
+    # * add logic to determine if the user exists
+    # * add conditional logic to add/remove the user based on the 'state' flag
+    #   and existance of the user in Cassandra
+
+    changed = False  
+    user = module.params['user']
+    state = module.params['state']
+
+    module.exit_json(changed=changed, user=user)
 
 
 if __name__ == '__main__':

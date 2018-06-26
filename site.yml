@@ -3,5 +3,5 @@
   hosts: all
   vars_files: ["vars/vault"]
   roles: 
-    #- "cassandra_server" TESTING IF CASS SERVER IS CAUSING CASS DRIVER INSTALL TO FAIL
+    - "cassandra_server"
     - "cassandra_users"
