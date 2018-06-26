@@ -5,13 +5,13 @@
 This repository contains a sample Ansible Module, Role, and Playbook that will install a Cassandra database and manage Cassandra database users. 
 
 ## Setup and Dependencies
-This solution was implemented and tested using the software and versions listed below. Note that these are the versioned used on the development machine (i.e. the controller or host node), not necessarily the versions installed by the configuration logic. 
+This solution was implemented and tested using the software and versions listed below. Note that these are the versions used on the development machine (i.e. the controller or host node), not necessarily the versions installed by the configuration logic. 
 * Python 3.6.1 and pip 10.0.1
 * Ansible 2.5.5
 * VirtualBox 5.2.12
 * Vagrant 2.1.1
 
-If you would like instructions on how to install these tools or how to use them please [create a new issue](https://github.com/mdeangelo272/ansible-demo/issues/new).
+If you would like instructions on how to install these tools or how to use them please [create a new issue](https://github.com/mdeangelo272/ansible-demo/issues/new) or [email me](mailto:iam@mdeangelo272.me).
 
 ## Usage
 This demo solution is intended to be completely self-contained. To install Cassandra and create a demo user simply run:
