@@ -1,5 +1,5 @@
 ---
-- name: "Install Cassandra Server and Manager Users"
+- name: "Install Cassandra Server and Configure Users"
   hosts: all
   vars_files: ["vars/vault"]
   roles: 
