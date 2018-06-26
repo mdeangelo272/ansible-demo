@@ -3,7 +3,8 @@
 
 Vagrant.configure("2") do |config|
   #config.vm.box = "debian/jessie64"
-  config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
 
   # Direct Vagrant to install using the Ansible Provisioner
   unless ENV["ONLY_RUN_TESTS"] 

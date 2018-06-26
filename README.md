@@ -12,6 +12,10 @@ This repository contains a sample Ansible Module, Role, and Playbook developed u
   * `RUN_TESTS`
   * `ONLY_RUN_TEST`
 
+## TODO
+* [ ] Add tests for cassandra server and open jdk
+* [ ] 
+
 
 ## Running Notes
 * debian install pip
