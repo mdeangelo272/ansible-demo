@@ -1,2 +1,23 @@
 ---
-- debug: msg="cass user {{ cass_admin_password }}"
+# note that this logic is distro dependent, extra steps would be needed to be agnostic
+- name: "configure apt and install cassandra"
+  block: 
+    - name: "add the openjdk 8 apt repo"
+      apt_repository: 
+        repo: "ppa:openjdk-r/ppa"
+      notify: "update apt cache"
+    - name: "add the cassandra gpg keys"
+      apt_key:
+        url: "https://www.apache.org/dist/cassandra/KEYS"
+        validate_certs: no
+    - name: "add the cassandra apt repo"
+      apt_repository: 
+        repo: "deb http://www.apache.org/dist/cassandra/debian 36x main"
+      notify: "update apt cache"
+    - name: "flush apt update handler before install"
+      meta: flush_handlers
+    - name: "install system packages"
+      apt: 
+        name: "{{ item }}"
+      with_items: ["openjdk-8-jdk", "cassandra"]
+  become: yes
