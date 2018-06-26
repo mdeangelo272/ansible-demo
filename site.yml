@@ -1,0 +1,5 @@
+---
+- name: primary
+  hosts: all
+  roles: 
+    - 'bootstrap'

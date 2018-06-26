@@ -6,6 +6,9 @@ This repository contains a sample Ansible Module, Role, and Playbook developed u
 * pip 10.0.1
 * Ansible 2.5.5
 
+## Doc Notes
+* Ansible Config turns on fact caching to allow for faster execution during development
+
 
 ## Running Notes
 * debian install pip
