@@ -1,0 +1,4 @@
+---
+# Defines Common Defaults
+cass_admin_user: "cassandra"
+cass_admin_password: "cassandra" # This should be overridden in a vaulted file

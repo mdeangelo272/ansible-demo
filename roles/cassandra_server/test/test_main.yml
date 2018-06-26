@@ -1,0 +1,8 @@
+---
+# Note that the role tests are playbooks not just task files. This allows us to include the variable files. 
+- name: "cassandra server tests"
+  hosts: all
+  vars_files: ["../vars/main.yml", "../../common/defaults/main.yml"]
+  tasks: 
+    - debug: msg="spam and eggs {{ cass_admin_user }}"
+

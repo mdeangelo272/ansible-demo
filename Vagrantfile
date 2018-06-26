@@ -5,16 +5,23 @@ Vagrant.configure("2") do |config|
   #config.vm.box = "debian/jessie64"
   config.vm.box = "ubuntu/trusty64"
 
-  # Direct the Ansible Provision
-  if ENV["ONLY_RUN_TEST"] 
+  # Direct Vagrant to install using the Ansible Provisioner
+  unless ENV["ONLY_RUN_TESTS"] 
     run_ansible(config.vm, "site.yml")
+  else
+    puts "*********************"
+    puts "skipping installation"
+    puts "*********************"
   end
 
-  # Direct to run Tests
+  # Direct Vagrant to run the tests
   if ENV["RUN_TESTS"] 
-    puts "TESTS WILL BE EXECUTED AFTER INSTALLATION"
-    #run_ansible(config.vm, "test/test_site.yml")
+    puts "**************************"
+    puts "The tests will be executed"
+    puts "**************************"
     run_ansible(config.vm, "roles/cassandra_users/test/test_main.yml")
+    run_ansible(config.vm, "roles/cassandra_server/test/test_main.yml")
+    #run_ansible(config.vm, "test/test_site.yml")
   end
 end
 
