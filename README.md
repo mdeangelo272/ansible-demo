@@ -5,9 +5,8 @@
 This repository contains a sample Ansible Module, Role, and Playbook that will install a Cassandra database and manage Cassandra database users. 
 
 ## Setup and Dependencies
-This solution was implemented and tested using the software and versions listed below. Note that these are the versioned used on the development machine (i.e. the controller or host node).
-* Python 3.6.1
-  * pip 10.0.1
+This solution was implemented and tested using the software and versions listed below. Note that these are the versioned used on the development machine (i.e. the controller or host node), not necessarily the versions installed by the configuration logic. 
+* Python 3.6.1 and pip 10.0.1
 * Ansible 2.5.5
 * VirtualBox 5.2.12
 * Vagrant 2.1.1
@@ -15,7 +14,7 @@ This solution was implemented and tested using the software and versions listed 
 If you would like instructions on how to install these tools or how to use them please [create a new issue](https://github.com/mdeangelo272/ansible-demo/issues/new).
 
 ## Usage
-This demo solution is intended to be complete self-contained. To install Cassandra and create a demo user simply run:
+This demo solution is intended to be completely self-contained. To install Cassandra and create a demo user simply run:
 ```
 vagrant up
 ```
@@ -27,9 +26,13 @@ Executing the automated tests can be performed with 2 environment variable flags
 * `RUN_TESTS` - Informs Vagrant to run the automated tests
 * `SKIP_INSTALL` - Informs Vagrant to skip the install. This is helpful when you only want to run the tests. 
 
+For example, if you want to only run the tests and skip the install logic you could run:
+``` 
+RUN_TESTS=1 SKIP_INSTALL=1 vagrant provision
+```
 
 ## Solution Overview
-This solution consistings of a global `site.yml` playbook that performs all installation and configuration operations as well as 3 [Ansible Roles](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_reuse_roles.html). The high level structure is: 
+This solution consistings of a global `site.yml` playbook that performs all installation and configuration operations as well as [Ansible Roles](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_reuse_roles.html). The high level structure is: 
 
 ```
 .
@@ -70,12 +73,12 @@ The solution consists of 3 Roles:
 * `cassandra_user` - This is the most sophisticated role. It is responsible for managing users in the Cassandra database. It includes a custom Ansible Module that can add and remove cassandra users. 
 
 ### Custom Module
-The Custom Ansible module is defined in `./roles/cassandra_users/library/cassandra_user.py`. It is also possible to define modules in a common logication, but a Role was chosen to increase the modularity of the solution. It depends on the [cassandra-driver](https://github.com/datastax/python-driver/) python package. The Role is responible for installing this dependency. Note, that modules run on the target node not the controlller node. Thus, for large scale solutions it Role and Module should be run on a dedicated hosts group (defined in a inventory file) or on the controller node itself using node delegation or local execution. 
+The Custom Ansible module is defined in `./roles/cassandra_users/library/cassandra_user.py`. It is also possible to define modules in a common location, but a Role was chosen to increase the modularity of the solution. It depends on the [cassandra-driver](https://github.com/datastax/python-driver/) python package. The Role is responible for installing this dependency. Note, that modules run on the target node not the controlller node. Thus, for large scale solutions the Role and Module should be run on a dedicated hosts group (defined in a inventory file) or on the controller node itself using node delegation or local execution. 
 
-The module is intended to pass `flake8` tests, but the `tox.ini` defines exceptions in the PEP8 standard that are common to Ansible. One can also create a symbolic link to the module to allow for global visibility of the Ansible tools. If this is done you can use the `ansible-doc` command to view the integrated documentation. 
+The module is intended to pass `flake8` tests, but the `tox.ini` defines exceptions in the PEP8 standard that are common to Ansible. One can also create a symbolic link to the module to allow for global visibility to the Ansible tools. If this is done you can use the `ansible-doc` command to view the integrated documentation. 
 ```
-mdeangel272-dev:ansible-demo mdeangelo272$ ansible-doc cassandra_user
-> CASSANDRA_USER    (/Users/mdeangelo272/.ansible/plugins/modules/cassandra_user.py)
+$ ansible-doc cassandra_user
+> CASSANDRA_USER    (~/.ansible/plugins/modules/cassandra_user.py)
 
         This module will add or remove a user from Cassandra.
 
