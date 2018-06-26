@@ -19,5 +19,5 @@
     - name: "install system packages"
       apt: 
         name: "{{ item }}"
-      with_items: ["openjdk-8-jdk", "cassandra"]
+      with_items: "{{ cass_server_packages }}" 
   become: yes

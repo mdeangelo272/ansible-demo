@@ -1,8 +1,12 @@
 ---
-# Note that the role tests are playbooks not just task files. This allows us to include the variable files. 
+# Note there is an opportunity to refactor this common testing logic into a core testing framework
 - name: "cassandra server tests"
   hosts: all
   vars_files: ["../vars/main.yml", "../../common/defaults/main.yml"]
   tasks: 
-    - debug: msg="spam and eggs {{ cass_admin_user }}"
+    - name: "Validate that the cassandra packages have been installed"
+      include_tasks: "test_packages.yml"
+      with_items: "{{ cass_server_packages }}"
+      loop_control: 
+        loop_var: current_dependency
 

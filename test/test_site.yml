@@ -1,3 +1,5 @@
 ---
+- name: "Run Cassandra Server Tests"
+  import_playbook: "../roles/cassandra_server/test/test_main.yml"
 - name: "Run Cassandra User Tests"
   import_playbook: "../roles/cassandra_users/test/test_main.yml"

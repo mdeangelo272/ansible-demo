@@ -1,1 +1,4 @@
 ---
+cass_server_packages: 
+  - "openjdk-8-jdk"
+  - "cassandra"

@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   # Direct Vagrant to install using the Ansible Provisioner
-  unless ENV["ONLY_RUN_TESTS"] 
+  unless ENV["SKIP_INSTALL"] 
     run_ansible(config.vm, "site.yml")
   else
     puts "*********************"
