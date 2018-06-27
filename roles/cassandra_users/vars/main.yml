@@ -1,8 +1,8 @@
 ---
 # System Dependencies (this are required to support the Cassandra Custom Module)
 system_dependencies:
-  - "build-essential"
-  - "libev4"
-  - "libev-dev"
-  - "python-dev"
+  # - "build-essential"
+  # - "libev4"
+  # - "libev-dev"
+  # - "python-dev"
   - "python-pip"

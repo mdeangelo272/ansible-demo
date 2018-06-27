@@ -129,11 +129,12 @@ EXAMPLES:
 ## TODO
 * [x] Add logic and tests to install cassandra and it's dependencies
 * [x] Add logic and tests to install dev tools and pip (system dependencies for cassandra-driver)
-* [ ] Track down remaining dependency for cassandra-driver (this was working but didn't survive a `vagrant destroy` there is a manually step I need to track down)
-* [ ] Finish the custom Ansible Module to modify Cassandra Users
+* [x] Track down remaining dependency for cassandra-driver (this was working but didn't survive a `vagrant destroy` there is a manually step I need to track down)
+* [x] Finish the custom Ansible Module to modify Cassandra Users
   * [ ] Add logic to exercise the Module and create a demo user
   * [ ] Add testing logic to validate that the module is idempotent
 
 
 ## Issues and PRs
 To report issues or ask questions about this repo please feel free to create an issue [here](https://github.com/mdeangelo272/ansible-demo/issues/new). Please also feel free to offer enhancements and suggestions in the form of [Pull Requests](https://github.com/mdeangelo272/ansible-demo/pulls).
+

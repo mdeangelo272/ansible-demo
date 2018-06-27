@@ -4,11 +4,13 @@
     name: "{{ item }}"
   with_items: "{{ system_dependencies }}"
   become: yes
-# todo: mkd - need get cassandra driver dependencies resolved
-# note: mkd - this was working but didn't survive after a vagrant destroy. There is some manual step I need to track down. 
-#- name: "install cassandra driver"
-#  pip: 
-#    name: "cassandra-driver"
-
+- name: "install cassandra driver"
+  pip: 
+    name: "cassandra-driver"
+  environment:
+    CASS_DRIVER_NO_CYTHON: 1
+    CASS_DRIVER_NO_EXTENSIONS: 1
+  become: yes
+# Note for a full solution the 'client' logic using the module would be in a different Role ensure that the base Role and Module are reusable. 
 - name: "modify cassandra users"
   import_tasks: "modify_cassandra_users.yml"

@@ -4,6 +4,11 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
+	# cassandra will crash with the default memory size
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+
   # Direct Vagrant to install using the Ansible Provisioner
   unless ENV["SKIP_INSTALL"] 
     run_ansible(config.vm, "site.yml")
