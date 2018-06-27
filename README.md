@@ -35,6 +35,8 @@ RUN_TESTS=1 SKIP_INSTALL=1 vagrant provision
 This solution consistings of a global `site.yml` playbook that performs all installation and configuration operations as well as [Ansible Roles](https://docs.ansible.com/ansible/2.5/user_guide/playbooks_reuse_roles.html). The high level structure is: 
 
 ```
+todo: mkd - update this will new role
+todo: add description of new roles
 .
 ├── LICENSE
 ├── README.md
