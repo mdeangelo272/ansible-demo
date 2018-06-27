@@ -6,5 +6,3 @@
 - name: "result"
   assert: { that: "'[installed]' in result.stdout" }
   ignore_errors: yes
-
-

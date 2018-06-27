@@ -65,6 +65,30 @@ try:
 except ImportError:
     CASSANDRA_FOUND = False
 
+def get_session():
+    session = None
+    try:
+        # todo add logic to use the params
+        cluster = Cluster()
+        session = cluster.connect()
+    except: 
+        module.fail_json(msg="Unable to login to cluster")
+
+    return session
+
+def keyspace_exists(session, name):
+    # todo: add logic to determine if the keyspace exists
+    return False
+
+def create_keyspace(session, name):
+    statement = "CREATE KEYSPACE {0} WITH REPLICATION = {{'class' : 'SimpleStrategy', 'replication_factor': 1}};"
+    # todo: add error handling
+    session.execute(statement.format(name)
+
+def drop_keyspace(session, name):
+    statement = "DROP KEYSPACE {0};"
+    # todo: add error handling
+    session.execute(statement.format(name)
 
 def main():
     # create and configure the Ansible Module instance
@@ -85,15 +109,21 @@ def main():
     if not CASSANDRA_FOUND:
         module.fail_json(msg="the python package cassandra-driver is required")
 
+    changed = False  
+    name = module.params['name']
+    state = module.params['state']
+
+    # get an active session
+    session = get_session()
+
+    # test if the keyspace exists
+    exists = keyspace_exists(name)
+
     # todo: mkd - add logic to create and remove keyspace
     # * add logic to log into server and report failures
     # * add logic to determine if the keyspace exists
     # * add conditional logic to add/remove the keyspace based on the 'state' flag
     #   and existance of the keyspace in Cassandra
-
-    changed = False  
-    name = module.params['name']
-    state = module.params['state']
 
     module.exit_json(changed=changed, name=name)
 
