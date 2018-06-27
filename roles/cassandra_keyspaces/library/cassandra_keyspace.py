@@ -8,10 +8,10 @@ ANSIBLE_METADATA = {'metadata_version': '0.1',
                     'supported_by': 'community'}
 
 DOCUMENTATION = '''
-module: cassandra_user
-short_description: Will Add or remove a user from Cassandra.
+module: cassandra_keyspace
+short_description: Will Add or remove a keyspace from Cassandra.
 description:
-    - This module will add or remove a user from Cassandra.
+    - This module will add or remove a keyspace from Cassandra.
 version_added: "0.1"
 options:
     login_user:
@@ -28,17 +28,13 @@ options:
         description:
             - The port that Cassandra is listening for client traffic
         default: 9042
-    user:
+    name:
         description:
-            - The name of the Cassandra user
+            - The name of the Cassandra Keyspace name
         required: true
-        aliases: ["name"]
-    password:
-        description:
-            - The password for the Cassandra user
     state:
         description:
-            - The state of the Cassandra user
+            - The state of the Cassandra Keyspace
         default: present
         choices: ["present", "absent"]
 
@@ -52,8 +48,8 @@ EXAMPLES = '''
 '''
 
 RETURNS = '''
-user:
-    description: The user name affected.
+name:
+    description: The keyspace name affected.
     returned: success
     type: string
 '''
@@ -78,7 +74,7 @@ def main():
             login_password=dict(no_log=True),
             login_host=dict(default='localhost'),
             login_port=dict(default=9042, type='int'),
-            user=dict(required=True, aliases=['name']),
+            name=dict(required=True),
             password=dict(no_log=True),
             state=dict(default='present', choices=['present', 'absent'])
         ),
@@ -89,17 +85,17 @@ def main():
     if not CASSANDRA_FOUND:
         module.fail_json(msg="the python package cassandra-driver is required")
 
-    # todo: mkd - add logic to create and remove users
+    # todo: mkd - add logic to create and remove keyspace
     # * add logic to log into server and report failures
-    # * add logic to determine if the user exists
-    # * add conditional logic to add/remove the user based on the 'state' flag
-    #   and existance of the user in Cassandra
+    # * add logic to determine if the keyspace exists
+    # * add conditional logic to add/remove the keyspace based on the 'state' flag
+    #   and existance of the keyspace in Cassandra
 
     changed = False  
-    user = module.params['user']
+    name = module.params['name']
     state = module.params['state']
 
-    module.exit_json(changed=changed, user=user)
+    module.exit_json(changed=changed, name=name)
 
 
 if __name__ == '__main__':

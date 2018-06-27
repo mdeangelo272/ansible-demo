@@ -1,6 +1,5 @@
 ---
-- name: "add cassandra user"
-  cassandra_user:
-    user: "foo"
-  ignore_errors: yes # note this is failing until cassandra driver is installed
+- name: "add cassandra keyspace"
+  cassandra_keyspace:
+    name: "ansible_demo"
 

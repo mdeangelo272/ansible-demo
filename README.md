@@ -101,7 +101,7 @@ OPTIONS (= is mandatory):
         [Default: (null)]
 
 - state
-        The state of the Cassandra user
+        The state of the Cassandra Keyspace
         (Choices: present, absent)[Default: present]
 
 = name

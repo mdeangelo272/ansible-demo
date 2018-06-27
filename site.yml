@@ -1,7 +1,7 @@
 ---
-- name: "Install Cassandra Server and Configure Users"
+- name: "Install Cassandra Server and Configure Keyspaces"
   hosts: all
   vars_files: ["vars/vault"]
   roles: 
     - "cassandra_server"
-    - "cassandra_users"
+    - "cassandra_keyspaces"

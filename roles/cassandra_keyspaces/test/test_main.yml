@@ -1,6 +1,6 @@
 ---
 # Note that the role tests are playbooks not just task files. This allows us to include the variable files. 
-- name: "cassandra users tests"
+- name: "cassandra keyspaces tests"
   hosts: all
   vars_files: ["../vars/main.yml"]
   tasks: 
