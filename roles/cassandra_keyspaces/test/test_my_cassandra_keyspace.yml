@@ -1,7 +1,0 @@
----
-- name: "checking if the {{ demo_keyspace }} keyspace was create"
-  command: cqlsh -e "DESCRIBE KEYSPACES;"
-  register: result
-  changed_when: false
-- name: "result"
-  assert: { that: "'{{ demo_keyspace }}' in result.stdout" }

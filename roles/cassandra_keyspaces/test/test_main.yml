@@ -17,11 +17,7 @@
         changed_when: false
       - name: "result"
         assert: { that: "'Name: cassandra-driver' in result.stdout" }
-    # These tests validate that the module is working correctly. They are 'core' to the Role/Module
     - name: "Test the custom Keyspace Module"
       import_tasks: "test_cassandra_keyspace_module.yml"
-    # These tests validate that our demo keyspace was created. They would be in a different Role
-    - name: "Validate Cassandra Keyspace"
-      import_tasks: "test_my_cassandra_keyspace.yml"
 
 

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: cassandra_server }
+  - { role: cassandra_keyspaces }

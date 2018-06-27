@@ -3,5 +3,4 @@
   hosts: all
   vars_files: ["vars/vault"]
   roles: 
-    - "cassandra_server"
-    - "cassandra_keyspaces"
+    - "demo_cassandra_keyspaces"

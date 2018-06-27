@@ -5,3 +5,4 @@
   changed_when: false
 - name: "result"
   assert: { that: "'todo' in result.stdout" }
+  ignore_errors: yes

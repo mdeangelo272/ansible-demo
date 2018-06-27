@@ -1,3 +1,15 @@
 ---
+galaxy_info: 
+  author: Michael DeAngelo
+  company: mdeangelo272 LLC
+  description: Installs the Cassandra Driver Python Package and contains a custom Module to add/remove Cassandra Keyspaces. 
+  min_ansible_version: 2.0
+  license: MIT
+  platforms: 
+    - name: Ubuntu
+      versions: 14.04
+  categories:
+    - database
+    - cassandra
 dependencies:
   - { role: common }
