@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
 
 	# cassandra will crash with the default memory size
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
+    vb.memory = "1024"
   end
 
   # Direct Vagrant to install using the Ansible Provisioner
