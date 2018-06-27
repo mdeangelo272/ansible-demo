@@ -1,0 +1,7 @@
+---
+- name: "todo"
+  command: cqlsh -e "DESCRIBE KEYSPACES;"
+  register: result
+  changed_when: false
+- name: "result"
+  assert: { that: "'todo' in result.stdout" }

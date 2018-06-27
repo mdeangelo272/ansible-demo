@@ -6,3 +6,4 @@ system_dependencies:
   # - "libev-dev"
   # - "python-dev"
   - "python-pip"
+demo_keyspace: "ansible_demo"
