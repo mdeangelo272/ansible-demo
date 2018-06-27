@@ -2,7 +2,7 @@
 
 ![Cassandra Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Cassandra_logo.svg/500px-Cassandra_logo.svg.png)
 
-This repository contains a sample Ansible Module, Role, and Playbook that will install a Cassandra database and manage Cassandra database users. 
+This repository contains a sample Ansible Module, Role, and Playbook that will install a Cassandra database and manage Cassandra database keyspaces. 
 
 ## Setup and Dependencies
 This solution was implemented and tested using the software and versions listed below. Note that these are the versions used on the development machine (i.e. the controller or host node), not necessarily the versions installed by the configuration logic. 
@@ -14,7 +14,7 @@ This solution was implemented and tested using the software and versions listed 
 If you would like instructions on how to install these tools or how to use them please [create a new issue](https://github.com/mdeangelo272/ansible-demo/issues/new) or [email me](mailto:iam@mdeangelo272.me).
 
 ## Usage
-This demo solution is intended to be completely self-contained. To install Cassandra and create a demo user simply run:
+This demo solution is intended to be completely self-contained. To install Cassandra and create a demo keyspace simply run:
 ```
 vagrant up
 ```
@@ -48,7 +48,7 @@ This solution consistings of a global `site.yml` playbook that performs all inst
 │   │   ├── templates
 │   │   ├── test
 │   │   └── vars
-│   ├── cassandra_users
+│   ├── cassandra_keyspaces
 │   │   ├── library
 │   │   ├── meta
 │   │   ├── tasks
@@ -70,17 +70,17 @@ Note that this demo solution uses `Ansible-Vault` to manage password. These are 
 The solution consists of 3 Roles: 
 * `common` - This is a very thin Role that only stores `default` values for some common variables. 
 * `cassandra_server` - This install the Cassandra Server and it's dependencies. It is based on the [Cassandra Installation Guide](http://cassandra.apache.org/doc/latest/getting_started/installing.html). 
-* `cassandra_user` - This is the most sophisticated role. It is responsible for managing users in the Cassandra database. It includes a custom Ansible Module that can add and remove cassandra users. 
+* `cassandra_keyspace` - This is the most sophisticated role. It is responsible for managing keyspaces in the Cassandra database. It includes a custom Ansible Module that can add and remove cassandra keyspaces. 
 
 ### Custom Module
-The Custom Ansible module is defined in `./roles/cassandra_users/library/cassandra_user.py`. It is also possible to define modules in a common location, but a Role was chosen to increase the modularity of the solution. It depends on the [cassandra-driver](https://github.com/datastax/python-driver/) python package. The Role is responible for installing this dependency. Note, that modules run on the target node not the controlller node. Thus, for large scale solutions the Role and Module should be run on a dedicated hosts group (defined in a inventory file) or on the controller node itself using node delegation or local execution. 
+The Custom Ansible module is defined in `./roles/cassandra_keyspaces/library/cassandra_keyspace.py`. It is also possible to define modules in a common location, but a Role was chosen to increase the modularity of the solution. It depends on the [cassandra-driver](https://github.com/datastax/python-driver/) python package. The Role is responible for installing this dependency. Note, that modules run on the target node not the controlller node. Thus, for large scale solutions the Role and Module should be run on a dedicated hosts group (defined in a inventory file) or on the controller node itself using node delegation or local execution. 
 
 The module is intended to pass `flake8` tests, but the `tox.ini` defines exceptions in the PEP8 standard that are common to Ansible. One can also create a symbolic link to the module to allow for global visibility to the Ansible tools. If this is done you can use the `ansible-doc` command to view the integrated documentation. 
 ```
-$ ansible-doc cassandra_user
-> CASSANDRA_USER    (~/.ansible/plugins/modules/cassandra_user.py)
+$ ansible-doc cassandra_keyspace
+> CASSANDRA_KEYSPACE    (~/.ansible/plugins/modules/cassandra_keyspace.py)
 
-        This module will add or remove a user from Cassandra.
+        This module will add or remove a keyspace from Cassandra.
 
 OPTIONS (= is mandatory):
 
@@ -100,17 +100,12 @@ OPTIONS (= is mandatory):
         The user name used to login into Cassandra
         [Default: (null)]
 
-- password
-        The password for the Cassandra user
-        [Default: (null)]
-
 - state
         The state of the Cassandra user
         (Choices: present, absent)[Default: present]
 
-= user
-        The name of the Cassandra user
-        (Aliases: name)
+= name
+        The name of the Cassandra Keyspace
 
 
 NOTES:
@@ -130,8 +125,8 @@ EXAMPLES:
 * [x] Add logic and tests to install cassandra and it's dependencies
 * [x] Add logic and tests to install dev tools and pip (system dependencies for cassandra-driver)
 * [x] Track down remaining dependency for cassandra-driver (this was working but didn't survive a `vagrant destroy` there is a manually step I need to track down)
-* [x] Finish the custom Ansible Module to modify Cassandra Users
-  * [ ] Add logic to exercise the Module and create a demo user
+* [x] Finish the custom Ansible Module to modify Cassandra Keyspaces
+  * [ ] Add logic to exercise the Module and create a demo Keyspace
   * [ ] Add testing logic to validate that the module is idempotent
 
 
