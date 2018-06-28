@@ -130,6 +130,7 @@ EXAMPLES:
 * [x] Finish the custom Ansible Module to modify Cassandra Keyspaces
   * [x] Add logic to exercise the Module and create a demo Keyspace
   * [x] Add testing logic to validate that the module is idempotent
+* [ ] Update README to reflect new Role structure
 * [ ] Document that the module needs to be sym linked for tests to work, for fix that requirement
 ```
 mkdir -p ~/.ansible/plugins/modules
