@@ -1,11 +1,9 @@
 ---
-#- name: "Run Cassandra Server Tests"
-#  import_playbook: "../roles/cassandra_server/test/test_main.yml"
-#- name: "Run Cassandra Keyspace Tests"
-#  import_playbook: "../roles/cassandra_keyspaces/test/test_main.yml"
-#- name: "Run Demo Cassandra Keyspace Tests"
-#  import_playbook: "../roles/demo_cassandra_keyspaces/test/test_main.yml"
-
-
+- name: "Run Cassandra Server Tests"
+  import_playbook: "../roles/cassandra_server/test/test_main.yml"
+- name: "Run Cassandra Keyspace Tests"
+  import_playbook: "../roles/cassandra_keyspaces/test/test_main.yml"
+- name: "Run Demo Cassandra Keyspace Tests"
+  import_playbook: "../roles/demo_cassandra_keyspaces/test/test_main.yml"
 - name: "Run Cassandra Keyspace Tests"
   import_playbook: "../roles/cassandra_keyspaces/test/test_main.yml"

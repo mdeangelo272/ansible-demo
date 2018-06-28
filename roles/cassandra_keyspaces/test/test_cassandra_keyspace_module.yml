@@ -1,4 +1,26 @@
 ---
+# Note: the second call for a given state test the idempotency of the module
+# todo: add assertion logic around these tests. They currently need to be manually observed
+
+# this should create the keyspace
+- name: "create keyspace"
+  cassandra_keyspace:
+    name: "test_demo"
+# this should do nothing
+- name: "create keyspace second call"
+  cassandra_keyspace:
+    name: "test_demo"
+# this should drop the keyspace
+- name: "drop keyspace"
+  cassandra_keyspace:
+    name: "test_demo"
+    state: "absent"
+# this should do nothing
+- name: "drop keyspace second call"
+  cassandra_keyspace:
+    name: "test_demo"
+    state: "absent"
+
 #- name: "todo"
 #  command: cqlsh -e "DESCRIBE KEYSPACES;"
 #  register: result
@@ -6,6 +28,3 @@
 #- name: "result"
 #  assert: { that: "'todo' in result.stdout" }
 #  ignore_errors: yes
-- name: "create keyspace"
-  cassandra_keyspace:
-    name: "mkd1"

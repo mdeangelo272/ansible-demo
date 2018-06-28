@@ -90,8 +90,7 @@ class CassandraKeyspace(object):
         self.session = None
 
         self.connect_to_cassandra()
-        #self.converge_state()
-        self.module.exit_json(changed=False)
+        self.converge_state()
 
     def connect_to_cassandra(self):
         """

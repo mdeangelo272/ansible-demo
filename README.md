@@ -128,13 +128,16 @@ EXAMPLES:
 * [x] Add logic and tests to install dev tools and pip (system dependencies for cassandra-driver)
 * [x] Track down remaining dependency for cassandra-driver (this was working but didn't survive a `vagrant destroy` there is a manually step I need to track down)
 * [x] Finish the custom Ansible Module to modify Cassandra Keyspaces
-  * [ ] Add logic to exercise the Module and create a demo Keyspace
-  * [ ] Add testing logic to validate that the module is idempotent
-* [ ] Document that the module needs to be sym linked for tests to work
+  * [x] Add logic to exercise the Module and create a demo Keyspace
+  * [x] Add testing logic to validate that the module is idempotent
+* [ ] Document that the module needs to be sym linked for tests to work, for fix that requirement
 ```
 mkdir -p ~/.ansible/plugins/modules
 ln -s ~/dev/repos/mdeangelo272/ansible-demo/roles/cassandra_keyspaces/library/cassandra_keyspace.py ~/.ansible/plugins/modules/
 ```
+* [ ] Add assertion logic in the modules tests
+* [ ] Add logic to actually use the params in the module
+
 
 
 ## Issues and PRs

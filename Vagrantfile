@@ -31,6 +31,6 @@ def run_ansible(vm, playbook)
   vm.provision "ansible" do |ansible|
     ansible.playbook = playbook
     ansible.compatibility_mode = "2.0"
-    ansible.verbose = "v"
+    #ansible.verbose = "v"
   end
 end
