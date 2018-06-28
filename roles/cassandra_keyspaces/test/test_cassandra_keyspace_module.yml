@@ -1,8 +1,11 @@
 ---
-- name: "todo"
-  command: cqlsh -e "DESCRIBE KEYSPACES;"
-  register: result
-  changed_when: false
-- name: "result"
-  assert: { that: "'todo' in result.stdout" }
-  ignore_errors: yes
+#- name: "todo"
+#  command: cqlsh -e "DESCRIBE KEYSPACES;"
+#  register: result
+#  changed_when: false
+#- name: "result"
+#  assert: { that: "'todo' in result.stdout" }
+#  ignore_errors: yes
+- name: "create keyspace"
+  cassandra_keyspace:
+    name: "mkd1"

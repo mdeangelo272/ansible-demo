@@ -4,6 +4,13 @@
   hosts: all
   vars_files: ["../vars/main.yml"]
   tasks: 
+    - name: "Test the custom Keyspace Module"
+      import_tasks: "test_cassandra_keyspace_module.yml"
+    - name: "faile"
+      fail:
+
+
+
     - name: "Validate that the system dependencies have been installed"
       # I would greatly prefer to loop over a block, but Ansible does not support it.
       include_tasks: "test_dependencies.yml"
@@ -18,7 +25,8 @@
       - name: "result"
         assert: { that: "'Name: cassandra-driver' in result.stdout" }
         ignore_errors: yes
+    - name: "create keyspace"
+      cassandra_keyspace:
+        name: "mkd1"
     - name: "Test the custom Keyspace Module"
       import_tasks: "test_cassandra_keyspace_module.yml"
-
-

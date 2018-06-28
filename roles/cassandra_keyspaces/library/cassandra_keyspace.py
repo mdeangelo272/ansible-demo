@@ -55,9 +55,6 @@ name:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-# from ansible.module_utils.six import binary_type, text_type
-# from ansible.module_utils.six.moves import configparser
-
 
 try:
     from cassandra.cluster import Cluster
@@ -65,68 +62,99 @@ try:
 except ImportError:
     CASSANDRA_FOUND = False
 
-def get_session():
-    session = None
-    try:
-        # todo add logic to use the params
-        cluster = Cluster()
-        session = cluster.connect()
-    except: 
-        module.fail_json(msg="Unable to login to cluster")
 
-    return session
+class CassandraKeyspace(object):
+    """
+    Uses AnsibleModule and the Cassandra Driver to modify Cassandra Keyspaces.
+    """
 
-def keyspace_exists(session, name):
-    # todo: add logic to determine if the keyspace exists
-    return False
+    def __init__(self):
+        self.module = AnsibleModule(
+            argument_spec=dict(
+                login_user=dict(),
+                login_password=dict(no_log=True),
+                login_host=dict(default='localhost'),
+                login_port=dict(default=9042, type='int'),
+                name=dict(required=True),
+                password=dict(no_log=True),
+                state=dict(default='present', choices=['present', 'absent'])
+            ),
+            supports_check_mode=False  # todo: add check mode support
+        )
 
-def create_keyspace(session, name):
-    statement = "CREATE KEYSPACE {0} WITH REPLICATION = {{'class' : 'SimpleStrategy', 'replication_factor': 1}};"
-    # todo: add error handling
-    session.execute(statement.format(name)
+        # Validate that the cassanadra driver has been installed
+        if not CASSANDRA_FOUND:
+            self.module.fail_json(msg="the python package cassandra-driver is required")
 
-def drop_keyspace(session, name):
-    statement = "DROP KEYSPACE {0};"
-    # todo: add error handling
-    session.execute(statement.format(name)
+        self.cluster = None
+        self.session = None
 
-def main():
-    # create and configure the Ansible Module instance
-    module = AnsibleModule(
-        argument_spec=dict(
-            login_user=dict(),
-            login_password=dict(no_log=True),
-            login_host=dict(default='localhost'),
-            login_port=dict(default=9042, type='int'),
-            name=dict(required=True),
-            password=dict(no_log=True),
-            state=dict(default='present', choices=['present', 'absent'])
-        ),
-        supports_check_mode=False  # todo: add check mode support
-    )
+        self.connect_to_cassandra()
+        #self.converge_state()
+        self.module.exit_json(changed=False)
 
-    # Validate that the cassanadra driver has been installed
-    if not CASSANDRA_FOUND:
-        module.fail_json(msg="the python package cassandra-driver is required")
+    def connect_to_cassandra(self):
+        """
+        creates and configures the Cassandra cluster
+        """
+        try:
+            # todo add logic to use the params
+            #   this requires creating a dictionary only populated with the not null-like values.
+            #   The Cluster object does not handle null values very well
+            self.cluster = Cluster()
+            self.session = self.cluster.connect()
+        except Exception as ex:
+            self.module.fail_json(msg=str(ex))
 
-    changed = False  
-    name = module.params['name']
-    state = module.params['state']
+    def execute_statement(self, statement):
+        try:
+            self.session.execute(statement)
+        except Exception as ex:
+            self.module.fail_json(msg=str(ex))
 
-    # get an active session
-    session = get_session()
+    def keyspace_exists(self, name):
+        """
+        Determines if the Keyspace Exists
+        """
+        return name in self.cluster.metadata.keyspaces
 
-    # test if the keyspace exists
-    exists = keyspace_exists(name)
+    def create_keyspace(self, name):
+        """
+        Creates the Keyspace
+        """
+        statement = "CREATE KEYSPACE {0} WITH REPLICATION = {{'class' : 'SimpleStrategy', 'replication_factor': 1}};"
+        self.execute_statement(statement.format(name))
 
-    # todo: mkd - add logic to create and remove keyspace
-    # * add logic to log into server and report failures
-    # * add logic to determine if the keyspace exists
-    # * add conditional logic to add/remove the keyspace based on the 'state' flag
-    #   and existance of the keyspace in Cassandra
+    def drop_keyspace(self, name):
+        """
+        Drops the Keyspace
+        """
+        statement = "DROP KEYSPACE {0};"
+        self.execute_statement(statement.format(name))
 
-    module.exit_json(changed=changed, name=name)
+    def converge_state(self):
+        """
+        Performs the primary business logic to add or remove Cassandra Keyspaces.
+        """
+
+        # stage common variables at this scope
+        changed = False
+        name = self.module.params['name']
+        state = self.module.params['state']
+
+        # test if the keyspace exists
+        exists = self.keyspace_exists(name)
+
+        # add or Drop the Keyspace based on criteria
+        if not exists and state == 'present':
+            self.create_keyspace(name)
+            changed = True
+        elif exists and state == 'absent':
+            self.drop_keyspace(name)
+            changed = True
+
+        self.module.exit_json(changed=changed, name=name)
 
 
 if __name__ == '__main__':
-    main()
+    CassandraKeyspace()

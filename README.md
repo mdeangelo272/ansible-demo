@@ -130,8 +130,14 @@ EXAMPLES:
 * [x] Finish the custom Ansible Module to modify Cassandra Keyspaces
   * [ ] Add logic to exercise the Module and create a demo Keyspace
   * [ ] Add testing logic to validate that the module is idempotent
+* [ ] Document that the module needs to be sym linked for tests to work
+```
+mkdir -p ~/.ansible/plugins/modules
+ln -s ~/dev/repos/mdeangelo272/ansible-demo/roles/cassandra_keyspaces/library/cassandra_keyspace.py ~/.ansible/plugins/modules/
+```
 
 
 ## Issues and PRs
 To report issues or ask questions about this repo please feel free to create an issue [here](https://github.com/mdeangelo272/ansible-demo/issues/new). Please also feel free to offer enhancements and suggestions in the form of [Pull Requests](https://github.com/mdeangelo272/ansible-demo/pulls).
+
 

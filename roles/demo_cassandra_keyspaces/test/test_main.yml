@@ -8,6 +8,6 @@
       command: cqlsh -e "DESCRIBE KEYSPACES;"
       register: result
       changed_when: false
-  - name: "result"
-  - assert: { that: "'{{ demo_keyspace }}' in result.stdout" }
-    ignore_errors: yes
+    - name: "result"
+      assert: { that: "'{{ demo_keyspace }}' in result.stdout" }
+      ignore_errors: yes
